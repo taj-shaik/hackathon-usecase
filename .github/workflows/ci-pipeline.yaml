@@ -23,15 +23,15 @@ jobs:
 
      - name: build application service images
        run: |
-          docker build -t ${{ vars.GAR_LOCATION }}/application-service:${{ github.sha }} ./application-service
-          docker push ${{ vars.GAR_LOCATION }}/application-service:{{ github.sha }}
+          docker build -t ${{ vars.GAR_LOCATION }}/application-service:latest ./application-service
+          docker push ${{ vars.GAR_LOCATION }}/application-service:latest
 
      - name: build order service image
        run: |
-         docker build -t ${{ vars.GAR_LOCATION }}/order-service:${{ github.sha }} ./order-service
-         docker push ${{ vars.GAR_LOCATION }}/order-service:{{ github.sha }}
-         
+         docker build -t ${{ vars.GAR_LOCATION }}/order-service:latest ./order-service
+         docker push ${{ vars.GAR_LOCATION }}/order-service:latest
+
      - name: buld patient service image
        run: |
-         docker build -t ${{ vars.GAR_LOCATION }}/patient-service:${{ github.sha }} ./patient-service
-         docker push ${{ vars.GAR_LOCATION }}/patient-service:{{ github.sha }}
+         docker build -t ${{ vars.GAR_LOCATION }}/patient-service:latest ./patient-service
+         docker push ${{ vars.GAR_LOCATION }}/patient-service:latest
