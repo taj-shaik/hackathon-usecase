@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application
+spec:
+  replicas: {{ .Values.image.application.replicas }}
+  selector:
+    matchLabels:
+      app: app-selector
+  template:
+    metadata:
+      labels:
+        app: app-selector
+    spec:
+      containers:
+        - name: app
+          image: "{{ .Values.image.application.repository }}:latest"
+          imagePullPolicy: {{ .Values.image.application.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.application.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: application
+spec:
+  type: {{ .Values.service.application.type }}
+  selector:
+    app: app-selector
+  ports:
+    - port: {{ .Values.service.application.targetPort }}
+      targetPort: {{ .Values.service.application.targetPort }}
+      nodePort: {{ .Values.service.application.nodePort }}

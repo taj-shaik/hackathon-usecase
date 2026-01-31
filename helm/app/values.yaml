@@ -1,0 +1,38 @@
+image:
+ application:
+   repository: asia-south1-docker.pkg.dev/devops-marathon/hcl-hacakthon/application-service
+   pullPolicy: IfNotPresent
+   tag: "latest"
+   replicas: 1
+ 
+ order:
+   repository: asia-south1-docker.pkg.dev/devops-marathon/hcl-hacakthon/order-service
+   pullPolicy: IfNotPresent
+   tag: "latest"
+   replicas: 1
+
+ patient:
+   repository: asia-south1-docker.pkg.dev/devops-marathon/hcl-hacakthon/patient-service
+   pullPolicy: IfNotPresent
+   tag: "latest"
+   replicas: 1
+
+service:
+ application:
+   type: NodePort
+   port: 80
+   targetPort: 3001
+   nodePort: 30001
+
+ order:
+   type: NodePort
+   port: 80
+   targetPort: 8080
+   nodePort: 30002
+
+ patient:
+   type: NodePort
+   port: 80
+   targetPort: 3000
+   nodePort: 30000
+

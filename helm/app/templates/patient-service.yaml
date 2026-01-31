@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient
+spec:
+  replicas: {{ .Values.image.patient.replicas }}
+  selector:
+    matchLabels:
+      app: patient-selector
+  template:
+    metadata:
+      labels:
+        app: patient-selector
+    spec:
+      containers:
+        - name: patient
+          image: "{{ .Values.image.patient.repository }}:latest"
+          imagePullPolicy: {{ .Values.image.patient.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.patient.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: patient
+spec:
+  type: {{ .Values.service.patient.type }}
+  selector:
+    app: patient-selector
+  ports:
+    - port: {{ .Values.service.patient.port }}
+      targetPort: {{ .Values.service.patient.targetPort }}
+      nodePort: {{ .Values.service.patient.nodePort }}

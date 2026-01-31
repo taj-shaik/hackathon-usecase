@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+spec:
+  replicas: {{ .Values.image.order.replicas }}
+  selector:
+    matchLabels:
+      app: order-selector
+  template:
+    metadata:
+      labels:
+        app: order-selector
+    spec:
+      containers:
+        - name: order
+          image: "{{ .Values.image.order.repository }}:latest"
+          imagePullPolicy: {{ .Values.image.order.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.order.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order
+spec:
+  type: {{ .Values.service.order.type }}
+  selector:
+    app: order-selector
+  ports:
+    - port: {{ .Values.service.order.port }}
+      targetPort: {{ .Values.service.order.targetPort }}
+      nodePort: {{ .Values.service.order.nodePort }}
