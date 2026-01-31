@@ -11,13 +11,22 @@ jobs:
     steps:
      - name: checkout code
        uses: actions/checkout@v4
+     - name: Authenticate to Google Cloud
+       uses: google-github-actions/auth@v2
+       with:
+          credentials_json: ${{ secrets.GCP_KEY_JSON }}
+     - name: Configure Docker
+       run: |
+          gcloud auth configure-docker asia-south1-docker.pkg.dev
      - name: build application service images
        run: |
-         docker build -t application-service:${{ github.sha }} ./application-service
+          docker build -t ${{ vars.GAR_LOCATION }}/application-service:${{ github.sha }} ./application-service
+           docker push ${{ vars.GAR_LOCATION }}/application-service:{{ github.sha }}
      - name: build order service image
        run: |
-         docker build -t order-service:${{ github.sha }} ./order-service
+         docker build -t ${{ vars.GAR_LOCATION }}/order-service:${{ github.sha }} ./order-service
+         docker push ${{ vars.GAR_LOCATION }}/order-service:{{ github.sha }}
      - name: buld patient service image
        run: |
-         docker build -t patient-service:${{ github.sha }} ./patient-service
-         
+         docker build -t ${{ vars.GAR_LOCATION }}/patient-service:${{ github.sha }} ./patient-service
+         docker push ${{ vars.GAR_LOCATION }}/patient-service:{{ github.sha }}
