@@ -41,7 +41,7 @@ jobs:
          docker build -t ${{ vars.GAR_LOCATION }}/patient-service:latest ./patient-service
          docker push ${{ vars.GAR_LOCATION }}/patient-service:latest
     
-    deploy:
+   deploy:
       runs-on: ubuntu-latest
       steps:
         - name: checkout code
