@@ -2,3 +2,4 @@
 .class*
 .jar
 .ear
+node_modules

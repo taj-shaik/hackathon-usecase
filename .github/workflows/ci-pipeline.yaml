@@ -1,0 +1,23 @@
+name: "pipeline-practice"
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+   build:
+    runs-on: ubuntu-latest
+    steps:
+     - name: checkout code
+       uses: actions/checkout@v4
+     - name: build application service images
+       run: |
+         docker build -t application-service:${{ github.sha }} ./application-service
+     - name: build order service image
+       run: |
+         docker build -t order-service:${{ github.sha }} ./order-service
+     - name: buld patient service image
+       run: |
+         docker build -t patient-service:${{ github.sha }} ./patient-service
+         
