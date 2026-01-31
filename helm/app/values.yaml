@@ -1,19 +1,16 @@
 image:
  application:
    repository: asia-south1-docker.pkg.dev/devops-marathon/hcl-hacakthon/application-service
-   pullPolicy: IfNotPresent
    tag: "latest"
    replicas: 1
  
  order:
    repository: asia-south1-docker.pkg.dev/devops-marathon/hcl-hacakthon/order-service
-   pullPolicy: IfNotPresent
    tag: "latest"
    replicas: 1
 
  patient:
    repository: asia-south1-docker.pkg.dev/devops-marathon/hcl-hacakthon/patient-service
-   pullPolicy: IfNotPresent
    tag: "latest"
    replicas: 1
 
