@@ -15,7 +15,7 @@ spec:
       containers:
         - name: app
           image: "{{ .Values.image.application.repository }}:latest"
-          imagePullPolicy: {{ .Values.image.application.pullPolicy }}
+          # imagePullPolicy: {{ .Values.image.application.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.application.port }}
 ---

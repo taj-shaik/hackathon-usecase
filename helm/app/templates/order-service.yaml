@@ -15,7 +15,7 @@ spec:
       containers:
         - name: order
           image: "{{ .Values.image.order.repository }}:latest"
-          imagePullPolicy: {{ .Values.image.order.pullPolicy }}
+          # imagePullPolicy: {{ .Values.image.order.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.order.port }}
 ---

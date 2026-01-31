@@ -15,7 +15,7 @@ spec:
       containers:
         - name: patient
           image: "{{ .Values.image.patient.repository }}:latest"
-          imagePullPolicy: {{ .Values.image.patient.pullPolicy }}
+          # imagePullPolicy: {{ .Values.image.patient.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.patient.port }}
 ---
