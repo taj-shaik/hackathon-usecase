@@ -40,3 +40,28 @@ jobs:
        run: |
          docker build -t ${{ vars.GAR_LOCATION }}/patient-service:latest ./patient-service
          docker push ${{ vars.GAR_LOCATION }}/patient-service:latest
+    
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout code
+          uses: actions/checkout@v4
+
+        - name: Authenticate to Google Cloud
+          uses: google-github-actions/auth@v2
+          with:
+            credentials_json: ${{ secrets.GCP_KEY_JSON }}
+
+        - name: Authenticate to Google Cloud
+          uses: google-github-actions/get-gke-credentials@v2
+          with:
+           cluster_name: ${{ vars.GKE_CLUSTER }}
+           location: ${{ vars.REGION }}
+
+        - name: Install Helm
+          run: |
+            curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+        - name: Deploy using Helm
+          run: |
+            helm upgrade --install app ./helm/app
