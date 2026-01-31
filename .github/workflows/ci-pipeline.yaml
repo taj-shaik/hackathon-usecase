@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-    paths:
-     - application-service/**
-     - order-service/**
-     - patient-service/**
-     - helm/**
+    # paths:
+    #  - application-service/**
+    #  - order-service/**
+    #  - patient-service/**
+    #  - helm/**
 
 jobs:
    build:
